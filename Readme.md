@@ -2,6 +2,9 @@
 
 ## Create a mock using Figma, msPaint or paper
 
+## Use this repo and follow the instructions:
+https://github.com/WebDev-WBSCodingSchool/wbs-react-template
+
 ## File structure
 App            ← owns global state (entries, selectedEntry, modal flags)
 
@@ -86,3 +89,12 @@ https://playground.wbscod.in/static/web-apis-storage/1
 
 
 
+## Summary of why this setup is beneficial:
+
+Vite provides a fast and smooth development experience with its optimized build tool.
+
+React offers a flexible and component-based architecture for building user interfaces.
+
+Tailwind CSS delivers utility-first styling, enabling rapid and consistent design across your project.
+
+Daisy UI supplies a collection of pre-designed components, streamlining the process of building beautiful and responsive interfaces.
