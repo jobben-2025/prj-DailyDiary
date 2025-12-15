@@ -1,4 +1,5 @@
 # Daily Diary is a personal diary project
+    https://github.com/jobben-2025/prj-DailyDiary
 
 ## Create a mock using Figma, msPaint or paper
 
@@ -29,16 +30,16 @@ App            ← owns global state (entries, selectedEntry, modal flags)
 
 
 ## ID	Functional Requirement	Description
-### FR001	Public GitHub Repository	
+### FR001	Public GitHub Repository    DONE
 Store all code in a single public repo; do not add instructors as collaborators.
 
-### FR002	Incremental Development with PRs	
+### FR002	Incremental Development with PRs	IN PROGRESS
 Merge every change into main via Pull Requests.
 
-### FR003	React + Vite Setup	
+### FR003	React + Vite Setup          DONE
 Scaffold the app with Vite and use React as the UI framework.
 
-### FR004	TailwindCSS via npm	Install 
+### FR004	TailwindCSS via npm	Install DONE
 Tailwind through npm and configure it with Vite.
 
 ### FR005	State & Effects Management	
