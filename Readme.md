@@ -4,19 +4,28 @@
 
 ## File structure
 App            ← owns global state (entries, selectedEntry, modal flags)
+
 ├── Header
+
 │   └── AddEntryButton      ← opens AddEntryModal
+
 ├── EntryList               ← displays cards sorted newest→oldest
+
 │   └── EntryCard (repeated)┐
+
 │       └── onClick → sets selectedEntry + opens ViewEntryModal
+
 ├── AddEntryModal           ← form to create a new entry
+
 │   └── EntryForm
+
 └── ViewEntryModal          ← shows full details for selected entry
+
     └── EntryDetails
 
 
 
-### ID	Functional Requirement	Description
+## ID	Functional Requirement	Description
 ### FR001	Public GitHub Repository	
 Store all code in a single public repo; do not add instructors as collaborators.
 
