@@ -10,6 +10,7 @@ const App = () => {
   const [formData, setFormData] = useState({
     title: '',
     date: new Date().toISOString().split('T')[0],
+    image: '',
     content: '',
   });
 
@@ -70,6 +71,13 @@ const App = () => {
             type="date"
             name="date"
             value={formData.date}
+            onChange={handleInputChange}
+            />
+            <input 
+            type="image"
+            name="image"
+            url=""
+            value={formData.url}
             onChange={handleInputChange}
             />
             <textarea 
