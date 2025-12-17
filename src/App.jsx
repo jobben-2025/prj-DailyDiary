@@ -1,18 +1,16 @@
-import { useEffect, useState } from 'react'
-
 import './index.css'
 
+import { useState, useEffect } from 'react';
+import Header from './components/Header';
+import EntryList from './components/EntryList';
+import AddEntryModal from './components/AddEntryModal';
+import ViewEntryModal from './components/ViewEntryModal';
 
-
-const App = () => {
+function App() {
   const [entries, setEntries] = useState([]);
+  const [selectedEntry, setSelectedEntry] = useState(null);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [formData, setFormData] = useState({
-    title: '',
-    date: new Date().toISOString().split('T')[0],
-    image: '',
-    content: '',
-  });
+  const [showViewModal, setShowViewModal] = useState(false);
 
   useEffect(() => {
     const storedEntries = localStorage.getItem('diaryEntries');
@@ -25,101 +23,60 @@ const App = () => {
     localStorage.setItem('diaryEntries', JSON.stringify(entries));
   }, [entries]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({...prev, [name]: value}));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    //validation goes here later
-
-    const newEntry = {
-      ...formData,
-      id: Date.now()  //simpler id than UUID
-    };
-
+  const handleAddEntry = (newEntry) => {
+    const today = new Date().toISOString().split('T')[0]; // 2025-12-16
+    // console.log(today)
+    const existingEntry = entries.find(entry => entry.date === today);
+    
+    if (existingEntry) {
+      alert('You already have an entry for today. Come back tomorrow!');
+      return;
+    }
+    
+    if (!newEntry.title || !newEntry.date || !newEntry.content) {
+      alert('Please fill in all fields');
+      return;
+    }
+    
     setEntries(prev => [newEntry, ...prev]);
-    setFormData({
-      title: '',
-      date: new Date().toISOString().split('T')[0],
-      content: '',
-    })
     setShowAddModal(false);
   };
 
+  const handleViewEntry = (entry) => {
+    setSelectedEntry(entry);
+    setShowViewModal(true);
+  };
+
   return (
-    <div className='app'>
-      <h1>Daily Diary</h1>
-      <button
-      onClick={() => setShowAddModal(true)}
-      >Add Entry - open modal</button>
-
-      {showAddModal && (
-        <div className='modal'>
-          <h2>Add New Entry</h2>
-          <form onSubmit={handleSubmit}>
-            <input 
-            type="text"
-            name="title"
-            placeholder='Title'
-            value={formData.title}
-            onChange={handleInputChange}
-            />
-            <input 
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleInputChange}
-            />
-            <input 
-            type="image"
-            name="image"
-            url=""
-            value={formData.url}
-            onChange={handleInputChange}
-            />
-            <textarea 
-            name="content"
-            placeholder='Diary content goes here'
-            value={formData.content}
-            onChange={handleInputChange}
-            />
-
-            <div>
-              <button
-              onClick={() => setShowAddModal(false)}
-              >
-              Close this
-              </button>
-              
-              <button
-              type="submit"
-              >
-              Save Entry
-              </button>
-            </div>       
-          </form>
-        </div>
-      )};
-
-      <div className='entries-list'>
-        {entries.map(entry => (
-          <div key={entry.id} className='entry-card'>
-            <h2>{entry.title}</h2>
-            <p>{entry.date}</p>
-            <p>{entry.content}</p>
-          </div>
-        ))}
+    <div className="bg-slate-800 flex">
+      <div className='flex-1 p-3'><div>
+      <Header onAddClick={() => setShowAddModal(true)} />
       </div>
-
+      <div className='p-5'>
+      <AddEntryModal 
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onSubmit={handleAddEntry}
+      />
+      </div></div>
+      <div className='flex-3 flex p-3'>
+      <div className='flex-2 '>
+      <EntryList 
+        entries={entries} 
+        onViewEntry={handleViewEntry} 
+      />
+      </div>
+      
+      <div className='flex-1 p-5 text-right'>
+      <ViewEntryModal 
+        isOpen={showViewModal}
+        onClose={() => setShowViewModal(false)}
+        entry={selectedEntry}
+      />
+      </div></div>
     </div>
   );
+}
 
-};
- 
 export default App;
-
-
 
