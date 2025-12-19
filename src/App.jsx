@@ -7,17 +7,20 @@ import AddEntryModal from './components/AddEntryModal';
 import ViewEntryModal from './components/ViewEntryModal';
 
 function App() {
-  const [entries, setEntries] = useState([]);
+  const [entries, setEntries] = useState(() => {
+    const storedEntries = localStorage.getItem('diaryEntries');
+    return storedEntries ? JSON.parse(storedEntries) : [];
+  });
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
 
-  useEffect(() => {
-    const storedEntries = localStorage.getItem('diaryEntries');
-    if (storedEntries) {
-      setEntries(JSON.parse(storedEntries));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedEntries = localStorage.getItem('diaryEntries');
+  //   if (storedEntries) {
+  //     setEntries(JSON.parse(storedEntries));
+  //   }
+  // }, []);
 
   useEffect(() => {
     localStorage.setItem('diaryEntries', JSON.stringify(entries));
